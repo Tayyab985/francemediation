@@ -10,7 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ModuleSettingController;
 use App\Http\Controllers\BlogsController;
-
+use App\Http\Controllers\PaypalController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,7 +24,7 @@ use App\Http\Controllers\BlogsController;
 
 Route::get('/', [App\Http\Controllers\FrontendController::class, 'index']);
 Route::get('a-propos-de', [App\Http\Controllers\FrontendController::class, 'about_us']);
-Route::get('formation', [App\Http\Controllers\FrontendController::class, 'formation']);
+Route::get('formation', [App\Http\Controllers\FrontendController::class, 'formation'])->name("formation");
 Route::get('nouvelles', [App\Http\Controllers\FrontendController::class, 'nouvelles']);
 Route::get('mediation', [App\Http\Controllers\FrontendController::class, 'mediation']);
 Route::get('blogue', [App\Http\Controllers\FrontendController::class, 'blogue']);
@@ -33,6 +33,12 @@ Route::get('mediater', [App\Http\Controllers\FrontendController::class, 'mediate
 Route::post('submit-formation-form', [App\Http\Controllers\FrontendController::class, 'formation_submission'])->name('submit.formation');
 Route::post('submit-mediator-form', [App\Http\Controllers\FrontendController::class, 'mediator_submission'])->name('submit.mediator');
 //Route::redirect('/', 'login');
+
+////////////////************ Paypal Routes ************////////////////
+Route::get('paywithpaypal', [FrontendController::class, 'payWithPaypal']);
+Route::get('paypal_pay/{id}',[PaypalController::class,'paymentWithpaypal'])->name('paypal.pay');
+Route::get('paypal',[PaypalController::class,'getPaymentStatus'])->name('status');
+////////////////************ End Paypal Routes ************////////////////
 
 Route::get('/admin5-login', function () {
     return view('auth.login');
@@ -147,3 +153,10 @@ Route::get('/modulesetting/getattribute/{user}', [App\Http\Controllers\ModuleSet
 
 // Route::get('auth/google', [App\Http\Controllers\GoogleLoginController::class, 'redirectToGoogle'])->name('google.login');
 // Route::get('auth/google/callback', [App\Http\Controllers\GoogleLoginController::class, 'handleGoogleCallback']);
+
+
+
+
+// Route::get('paywithpaypal', array('as' => 'paywithpaypal','uses' => 'PaypalController@payWithPaypal',));
+// Route::post('paypal', array('as' => 'paypal','uses' => 'PaypalController@postPaymentWithpaypal',));
+// Route::get('paypal', array('as' => 'status','uses' => 'PaypalController@getPaymentStatus',));

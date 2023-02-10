@@ -18,13 +18,25 @@
                 </div>
             </div>
         </section>
-
-
-
         <div class="container">
             <div class="row">
                 <div class="col">
                     <section class="card card-admin">
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {!! $message !!}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <?php Session::forget('success');?>
+                        @endif
+        
+                        @if ($message = Session::get('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {!! $message !!}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <?php Session::forget('error');?>
+                        @endif
                         <header class="card-header">
                             <div class="card-actions">
                                 <a
@@ -38,7 +50,6 @@
                                     data-card-dismiss
                                 ></a>
                             </div>
-
                             <h2 class="card-title">
                                 Formation (informations requises via le formulaire)
                             </h2>
@@ -89,7 +100,6 @@
 
                                     </div>
                                 </div>
-
                                 <div class="form-group row pb-4 has-success">
                                     <label
                                         class="col-lg-2 control-label text-lg-start pt-2"
@@ -597,7 +607,7 @@
                                             <span class="btn btn-default btn-file">
                                 <span class="fileupload-exists">Change</span>
                                 <span class="fileupload-new">Select file</span>
-                                <input type="file" name="cover_letter"/>
+                                <input type="file" name="cover_letter" required/>
                               </span>
                                         </div>
                                     </div>
@@ -632,7 +642,7 @@
                                             <span class="btn btn-default btn-file">
                                 <span class="fileupload-exists">Change</span>
                                 <span class="fileupload-new">Select file</span>
-                                <input type="file" name="photo" />
+                                <input type="file" name="photo" required/>
                               </span>
                                         </div>
                                     </div>
@@ -667,7 +677,7 @@
                                             <span class="btn btn-default btn-file">
                                 <span class="fileupload-exists">Change</span>
                                 <span class="fileupload-new">Select file</span>
-                                <input type="file" name="cv"/>
+                                <input type="file" name="cv" required/>
                               </span>
                                         </div>
                                     </div>

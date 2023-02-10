@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cms;
 use App\Models\User;
 use App\Models\Blog;
+use Session;
 use App\Models\Training_submissions;
 use App\Models\Mediator_submissions;
 use Illuminate\Http\Request;
@@ -95,14 +96,15 @@ class FrontendController extends Controller
         $submited_data['photo'] = $photo_img;
         $submited_data['cv'] = $cv_img;
 
-        Training_submissions::create($submited_data);
+        $formation = Training_submissions::create($submited_data);
+        Session::put('formation_id', $formation->id);
+        return redirect()->route('paypal.pay',1);
+        // $response_date = [
+        //     'status' => true,
+        //     'msg' => 'Your data added successfully'
+        // ];
 
-        $response_date = [
-            'status' => true,
-            'msg' => 'Your data added successfully'
-        ];
-
-        return view('frontend.pages.formation', $response_date);
+        // return view('frontend.pages.formation', $response_date);
     }
 
     public function mediator_submission(Request $request){

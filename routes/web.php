@@ -9,6 +9,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ModuleSettingController;
+use App\Http\Controllers\BlogsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,7 +77,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::delete('/mediator/deleteAll', [App\Http\Controllers\MediatorController::class, 'deleteAll'])->name('mediator.delete-all');
     Route::get('/mediator/status/{id}/{status}', [App\Http\Controllers\MediatorController::class, 'status'])->name('mediator.status');
 
-
     Route::get('/cms', [App\Http\Controllers\CmsController::class, 'index'])->name('cms.index');
     Route::get('/cms/create', [App\Http\Controllers\CmsController::class, 'create'])->name('cms.create');
     Route::post('/cms/store', [App\Http\Controllers\CmsController::class, 'store'])->name('cms.store');
@@ -84,7 +84,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('/cms/update/{id}', [App\Http\Controllers\CmsController::class, 'update'])->name('cms.update');
     Route::get('/cms/destroy/{id}', [App\Http\Controllers\CmsController::class, 'destroy'])->name('cms.destroy');
     Route::delete('/cms/deleteAll', [App\Http\Controllers\CmsController::class, 'deleteAll'])->name('cms.delete-all');
-
 
     Route::get('/modulesetting', [App\Http\Controllers\ModuleSettingController::class, 'index'])->name('modulesetting.index');
     Route::get('/modulesetting/create', [App\Http\Controllers\ModuleSettingController::class, 'create'])->name('modulesetting.create');
@@ -94,7 +93,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::delete('/modulesetting/destroy', [App\Http\Controllers\ModuleSettingController::class, 'destroy'])->name('modulesetting.destroy');
     Route::get('/modulesetting/editattribute/{id}', [App\Http\Controllers\ModuleSettingController::class, 'editattribute'])->name('modulesetting.editattribute');
 
-
     Route::get('/settings', [App\Http\Controllers\SettingController::class, 'index'])->name('setting.index');
     Route::get('/settings/create', [App\Http\Controllers\SettingController::class, 'create'])->name('setting.create');
     Route::post('/settings/store', [App\Http\Controllers\SettingController::class, 'store'])->name('setting.store');
@@ -102,7 +100,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('/settings/update/{id}', [App\Http\Controllers\SettingController::class, 'update'])->name('setting.update');
     Route::get('/settings/destroy/{id}', [App\Http\Controllers\SettingController::class, 'destroy'])->name('setting.destroy');
 
-
+    Route::resource('blogs', BlogsController::class);
+    Route::get('blogs/delete/{id}', [BlogsController::class, 'delete'])->name('blogs.delete');
+    Route::post('/blogs/deleteAll', [BlogsController::class, 'deleteAll'])->name('blogs.delete-all');
 });
 
 Route::get('auth/google', [App\Http\Controllers\GoogleLoginController::class, 'redirectToGoogle'])->name('google.login');

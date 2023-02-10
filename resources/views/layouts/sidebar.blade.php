@@ -53,6 +53,14 @@
                                 <span class="nav-title">Mediator Submissions</span>
                             </a>
                         </li>
+                        <li class="{{ Route::is('blogs.index') ? 'selected' : '' }}">
+                            <a href="{{ route('blogs.index') }}">
+                                <span class="has-icon">
+                                    <i class="icon-text"></i>
+                                </span>
+                                <span class="nav-title">Blogs</span>
+                            </a>
+                        </li>
 {{--                        <li class="{{ Route::is('cms.index') ? 'selected' : '' }}">--}}
 {{--                            <a href="{{ route('cms.index') }}">--}}
 {{--                                <span class="has-icon">--}}

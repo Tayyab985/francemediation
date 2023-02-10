@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cms;
 use App\Models\User;
+use App\Models\Blog;
 use App\Models\Training_submissions;
 use App\Models\Mediator_submissions;
 use Illuminate\Http\Request;
@@ -56,7 +57,8 @@ class FrontendController extends Controller
 
     public function blogue()
     {
-        return view('frontend.pages.blogue');
+        $blogs = Blog::orderBy('id', 'DESC')->paginate(10);
+        return view('frontend.pages.blogue',compact('blogs'));
     }
 
     public function contact()
@@ -70,8 +72,8 @@ class FrontendController extends Controller
     }
 
     public function formation_submission(Request $request){
-        dd($_FILES);
-        dd($request->input());
+        //dd($_FILES);
+        //dd($request->input());
         $submited_data = $request->input();
         unset($submited_data['_token']);
         // Letter

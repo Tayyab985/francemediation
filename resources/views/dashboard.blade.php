@@ -9,10 +9,8 @@
 					</div>
 					<div class="page-title">
 						<h3>Dashboard</h3>
-					
 						<h6 class="sub-heading">Welcome to dashboard.</h6>
 					</div>
-
 				</div>
 			</div>
 		</div>

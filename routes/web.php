@@ -9,7 +9,8 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ModuleSettingController;
-
+use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\PaypalController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,7 +24,7 @@ use App\Http\Controllers\ModuleSettingController;
 
 Route::get('/', [App\Http\Controllers\FrontendController::class, 'index']);
 Route::get('a-propos-de', [App\Http\Controllers\FrontendController::class, 'about_us']);
-Route::get('formation', [App\Http\Controllers\FrontendController::class, 'formation']);
+Route::get('formation', [App\Http\Controllers\FrontendController::class, 'formation'])->name("formation");
 Route::get('nouvelles', [App\Http\Controllers\FrontendController::class, 'nouvelles']);
 Route::get('mediation', [App\Http\Controllers\FrontendController::class, 'mediation']);
 Route::get('blogue', [App\Http\Controllers\FrontendController::class, 'blogue']);
@@ -32,6 +33,12 @@ Route::get('mediater', [App\Http\Controllers\FrontendController::class, 'mediate
 Route::post('submit-formation-form', [App\Http\Controllers\FrontendController::class, 'formation_submission'])->name('submit.formation');
 Route::post('submit-mediator-form', [App\Http\Controllers\FrontendController::class, 'mediator_submission'])->name('submit.mediator');
 //Route::redirect('/', 'login');
+
+////////////////************ Paypal Routes ************////////////////
+Route::get('paywithpaypal', [FrontendController::class, 'payWithPaypal']);
+Route::get('paypal_pay/{id}',[PaypalController::class,'paymentWithpaypal'])->name('paypal.pay');
+Route::get('paypal',[PaypalController::class,'getPaymentStatus'])->name('status');
+////////////////************ End Paypal Routes ************////////////////
 
 Route::get('/admin5-login', function () {
     return view('auth.login');
@@ -76,7 +83,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::delete('/mediator/deleteAll', [App\Http\Controllers\MediatorController::class, 'deleteAll'])->name('mediator.delete-all');
     Route::get('/mediator/status/{id}/{status}', [App\Http\Controllers\MediatorController::class, 'status'])->name('mediator.status');
 
-
     Route::get('/cms', [App\Http\Controllers\CmsController::class, 'index'])->name('cms.index');
     Route::get('/cms/create', [App\Http\Controllers\CmsController::class, 'create'])->name('cms.create');
     Route::post('/cms/store', [App\Http\Controllers\CmsController::class, 'store'])->name('cms.store');
@@ -84,7 +90,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('/cms/update/{id}', [App\Http\Controllers\CmsController::class, 'update'])->name('cms.update');
     Route::get('/cms/destroy/{id}', [App\Http\Controllers\CmsController::class, 'destroy'])->name('cms.destroy');
     Route::delete('/cms/deleteAll', [App\Http\Controllers\CmsController::class, 'deleteAll'])->name('cms.delete-all');
-
 
     Route::get('/modulesetting', [App\Http\Controllers\ModuleSettingController::class, 'index'])->name('modulesetting.index');
     Route::get('/modulesetting/create', [App\Http\Controllers\ModuleSettingController::class, 'create'])->name('modulesetting.create');
@@ -94,7 +99,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::delete('/modulesetting/destroy', [App\Http\Controllers\ModuleSettingController::class, 'destroy'])->name('modulesetting.destroy');
     Route::get('/modulesetting/editattribute/{id}', [App\Http\Controllers\ModuleSettingController::class, 'editattribute'])->name('modulesetting.editattribute');
 
-
     Route::get('/settings', [App\Http\Controllers\SettingController::class, 'index'])->name('setting.index');
     Route::get('/settings/create', [App\Http\Controllers\SettingController::class, 'create'])->name('setting.create');
     Route::post('/settings/store', [App\Http\Controllers\SettingController::class, 'store'])->name('setting.store');
@@ -102,7 +106,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('/settings/update/{id}', [App\Http\Controllers\SettingController::class, 'update'])->name('setting.update');
     Route::get('/settings/destroy/{id}', [App\Http\Controllers\SettingController::class, 'destroy'])->name('setting.destroy');
 
-
+    Route::resource('blogs', BlogsController::class);
+    Route::get('blogs/delete/{id}', [BlogsController::class, 'delete'])->name('blogs.delete');
+    Route::post('/blogs/deleteAll', [BlogsController::class, 'deleteAll'])->name('blogs.delete-all');
 });
 
 Route::get('auth/google', [App\Http\Controllers\GoogleLoginController::class, 'redirectToGoogle'])->name('google.login');
@@ -147,3 +153,10 @@ Route::get('/modulesetting/getattribute/{user}', [App\Http\Controllers\ModuleSet
 
 // Route::get('auth/google', [App\Http\Controllers\GoogleLoginController::class, 'redirectToGoogle'])->name('google.login');
 // Route::get('auth/google/callback', [App\Http\Controllers\GoogleLoginController::class, 'handleGoogleCallback']);
+
+
+
+
+// Route::get('paywithpaypal', array('as' => 'paywithpaypal','uses' => 'PaypalController@payWithPaypal',));
+// Route::post('paypal', array('as' => 'paypal','uses' => 'PaypalController@postPaymentWithpaypal',));
+// Route::get('paypal', array('as' => 'status','uses' => 'PaypalController@getPaymentStatus',));

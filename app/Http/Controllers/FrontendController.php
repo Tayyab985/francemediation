@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Cms;
 use App\Models\User;
+use App\Models\Blog;
+use Session;
 use App\Models\Training_submissions;
 use App\Models\Mediator_submissions;
 use Illuminate\Http\Request;
@@ -56,7 +58,8 @@ class FrontendController extends Controller
 
     public function blogue()
     {
-        return view('frontend.pages.blogue');
+        $blogs = Blog::orderBy('id', 'DESC')->paginate(10);
+        return view('frontend.pages.blogue',compact('blogs'));
     }
 
     public function contact()
@@ -70,8 +73,8 @@ class FrontendController extends Controller
     }
 
     public function formation_submission(Request $request){
-        dd($_FILES);
-        dd($request->input());
+        //dd($_FILES);
+        //dd($request->input());
         $submited_data = $request->input();
         unset($submited_data['_token']);
         // Letter
@@ -93,14 +96,15 @@ class FrontendController extends Controller
         $submited_data['photo'] = $photo_img;
         $submited_data['cv'] = $cv_img;
 
-        Training_submissions::create($submited_data);
+        $formation = Training_submissions::create($submited_data);
+        Session::put('formation_id', $formation->id);
+        return redirect()->route('paypal.pay',1);
+        // $response_date = [
+        //     'status' => true,
+        //     'msg' => 'Your data added successfully'
+        // ];
 
-        $response_date = [
-            'status' => true,
-            'msg' => 'Your data added successfully'
-        ];
-
-        return view('frontend.pages.formation', $response_date);
+        // return view('frontend.pages.formation', $response_date);
     }
 
     public function mediator_submission(Request $request){

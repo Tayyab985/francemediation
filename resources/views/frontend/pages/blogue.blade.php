@@ -2,7 +2,6 @@
 @section('title','Blogs PAGE')
 @section('main-content')
     <div role="main" class="main">
-
         <section class="page-header page-header-classic page-header-sm">
             <div class="container">
                 <div class="row">
@@ -23,55 +22,40 @@
             <div class="container py-4">
                 <div class="row">
                     <div class="col-lg-8 mb-5 mb-lg-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1600">
-
+                        @forelse($blogs as $blog)
                         <article class="mb-5">
                             <div class="card border-0 border-radius-0 box-shadow-1">
                                 <div class="card-body p-3 z-index-1">
                                     <a href="javascript:void(0)">
-                                        <img class="card-img-top border-radius-0 mb-2" src="{{ asset('assets/frontend/') }}/img//demos/cleaning-services/blog/blog-big-1.jpg" alt="Card Image">
+                                        <img class="card-img-top border-radius-0 mb-2" src="{{ asset('assets/blogs/'.$blog->thumbnail_img) }}" alt="Card Image">
                                     </a>
                                     <p class="text-uppercase text-color-default text-1 my-2">
-                                        <time pubdate datetime="2022-01-10">10 Jan 2022</time>
+                                        <time pubdate datetime="2022-01-10">{{ date('m-d-Y', strtotime($blog->created_at))}}</time>
                                         <span class="opacity-3 d-inline-block px-2">|</span>
-                                        John Doe
+                                        {{ $blog->author }}
                                     </p>
                                     <div class="card-body p-0">
-                                        <h4 class="card-title text-5 font-weight-bold pb-1 mb-2"><a class="text-color-dark text-color-hover-primary text-decoration-none" href="#">Lorem ipsum dolor sit amet</a></h4>
-                                        <p class="card-text mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc viverra lorem , consectetur adipiscing elit...</p>
+                                        <h4 class="card-title text-5 font-weight-bold pb-1 mb-2"><a class="text-color-dark text-color-hover-primary text-decoration-none" href="#">{{ $blog->title }}</a></h4>
+                                        <p class="card-text mb-2">{{ $blog->short_description }}</p>
                                         <a href="#" class="btn btn-link font-weight-semibold text-decoration-none text-3 ps-0">LIRE PLUS</a>
                                     </div>
                                 </div>
                             </div>
                         </article>
-
+                        @empty
                         <article class="mb-5">
                             <div class="card border-0 border-radius-0 box-shadow-1">
                                 <div class="card-body p-3 z-index-1">
-                                    <a href="javascript:void(0)">
-                                        <img class="card-img-top border-radius-0 mb-2" src="{{ asset('assets/frontend/') }}/img//demos/cleaning-services/blog/blog-big-2.jpg" alt="Card Image">
-                                    </a>
                                     <p class="text-uppercase text-color-default text-1 my-2">
-                                        <time pubdate datetime="2022-01-10">10 Jan 2022</time>
-                                        <span class="opacity-3 d-inline-block px-2">|</span>
-                                        John Doe
+                                        No Records found.
                                     </p>
-                                    <div class="card-body p-0">
-                                        <h4 class="card-title text-5 font-weight-bold pb-1 mb-2"><a class="text-color-dark text-color-hover-primary text-decoration-none" href="javascript:void(0)">Lorem ipsum dolor sit amet</a></h4>
-                                        <p class="card-text mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc viverra lorem , consectetur adipiscing elit...</p>
-                                        <a href="#" class="btn btn-link font-weight-semibold text-decoration-none text-3 ps-0">LIRE PLUS</a>
-                                    </div>
                                 </div>
                             </div>
                         </article>
-
+                        @endforelse
                         <ul class="custom-pagination-style-3 pagination pagination-rounded pagination-md justify-content-center">
-                            <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-left"></i></a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
+                            {!! $blogs->links() !!}
                         </ul>
-
                     </div>
                     <div class="blog-sidebar col-lg-4 pt-4 pt-lg-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1800">
                         <aside class="sidebar">

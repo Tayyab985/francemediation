@@ -1,7 +1,7 @@
 <?php
 return [
-    'client_id' => 'AUiR_CMBbI6Ks2Sbo_3VyFWICdyBTGW0GhKT0BXJIykp6k6cgMkoKIfMhZQL541KyO1vCPjrz7sgRuaO',
-    'secret' => 'EJpyjBnxKpSa0IbVOw14PKpTDvv6EipSH4vqxGnMV4O6ifkjBpaJYBBVCw9S8h52e9pPODM6hCbgoyBa',
+    'client_id' => env('CLIENT_ID', null),
+    'secret' => env('SECRET_ID', null),
     'settings' => array(
         'mode' => 'sandbox',
         'http.ConnectionTimeOut' => 1000,

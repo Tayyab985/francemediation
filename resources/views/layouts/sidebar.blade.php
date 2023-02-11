@@ -61,6 +61,14 @@
                                 <span class="nav-title">Blogs</span>
                             </a>
                         </li>
+                        <li class="{{ Route::is('events.index') ? 'selected' : '' }}">
+                            <a href="{{ route('events.index') }}">
+                                <span class="has-icon">
+                                    <i class="icon-text"></i>
+                                </span>
+                                <span class="nav-title">Events</span>
+                            </a>
+                        </li>
 {{--                        <li class="{{ Route::is('cms.index') ? 'selected' : '' }}">--}}
 {{--                            <a href="{{ route('cms.index') }}">--}}
 {{--                                <span class="has-icon">--}}

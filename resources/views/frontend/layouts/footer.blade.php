@@ -19,7 +19,7 @@
                 <h4 class="font-weight-bold ls-0">Nos Contacts</h4>
                 <div class="feature-box feature-box-style-2 align-items-center mb-3">
                     <div class="feature-box-icon">
-                        <img class="icon-animated" width="45" src="{{ asset('assets/frontend/') }}/img/demos/cleaning-services/icons/phone.svg" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
+                        <img class="icon-animated" width="45" src="{{ asset('assets/frontend/img/demos/cleaning-services/icons/phone.svg') }}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
                     </div>
                     <div class="feature-box-info ps-2">
                         <p class="text-uppercase font-weight-semibold line-height-1 text-2 pb-0 mb-0">APPELEZ-NOUS MAINTENANT</p>
@@ -79,7 +79,7 @@
             </div>
             <div class="row py-4 mt-2">
                 <div class="col-lg-6 text-center text-lg-start mb-3 mb-lg-0">
-
+                    <img alt="Porto" width="115" height="30" src="{{ asset('assets/frontend/img/franceMediation-logo-white.png') }}">
                 </div>
                 <div class="col-lg-6 text-center text-lg-end">
                     <p class="text-3 mb-0">France Médiation Tous Jours. © 2022. All Rights Reserved</p>

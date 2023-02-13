@@ -1,9 +1,8 @@
-
 <!-- Vendor -->
 <script src="{{ asset('assets/frontend/vendor/plugins/js/plugins.min.js') }}"></script>
 
 <!-- Theme Base, Components and Settings -->
-<script src="{{ asset('assets/frontend/js/theme.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/theme.js') }}"></scr>
 
 <!-- Current Page Vendor and Views -->
 <script src="{{ asset('assets/frontend/js/views/view.contact.js') }}"></script>

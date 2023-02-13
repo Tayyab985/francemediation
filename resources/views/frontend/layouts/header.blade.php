@@ -12,7 +12,7 @@
                             </ul>
                             <ul class="nav nav-pills position-relative bottom-1 ms-md-3">
                                 <li class="nav-item">
-                                    <span class="d-flex align-items-center ws-nowrap text-color-secondary font-weight-medium text-3"><i class="icon-clock icons text-3 top-3 left-1 me-2 text-color-secondary font-weight-bold"></i> Mon - Sat 9:00am - 6:00pm</span>
+                                    <span class="d-flex align-items-center ws-nowrap text-color-secondary font-weight-medium text-3"><i class="icon-clock icons text-3 top-3 left-1 me-2 text-color-secondary font-weight-bold"></i>Mon - Sat 9:00am - 6:00pm</span>
                                 </li>
                             </ul>
                         </div>
@@ -30,8 +30,8 @@
                 <div class="header-column">
                     <div class="header-row">
                         <div class="header-logo">
-                            <a href="{{url('/')}}">
-                                <img src="{{ asset('assets/frontend/') }}/img/FM-Logo.png" class="img-fluid" width="253" height="92" alt="" />
+                            <a href="demo-cleaning-services.html">
+                                <img src="{{ asset('assets/frontend/img/FM-Logo.png') }}" class="img-fluid" width="253" height="92" alt="" />
                             </a>
                         </div>
                     </div>
@@ -42,13 +42,13 @@
                             <div class="header-nav-main header-nav-main-text-capitalize header-nav-main-effect-2 header-nav-main-sub-effect-1">
                                 <nav class="collapse">
                                     <ul class="nav nav-pills" id="mainNav">
-                                        <li><a href="{{url('/')}}" class="nav-link">Accueil</a></li>
-                                        <li><a href="{{url('a-propos-de')}}" class="nav-link">À propos de</a></li>
-                                        <li><a href="{{url('formation')}}" class="nav-link">Formation</a></li>
-                                        <li><a href="{{url('nouvelles')}}" class="nav-link">Nouvelles</a></li>
-                                        <li><a href="{{url('mediation')}}" class="nav-link">Mediation</a></li>
-                                        <li><a href="{{url('blogue')}}" class="nav-link">Blogue</a></li>
-                                        <li><a href="{{url('contact')}}" class="nav-link">Contact</a></li>
+                                        <li><a href="{{url('/')}}" class="{{ request()->is('/') ? 'active' : '' }} nav-link">Accueil</a></li>
+                                        <li><a href="{{url('a-propos-de')}}" class="{{ request()->is('a-propos-de') ? 'active' : '' }} nav-link">À propos de</a></li>
+                                        <li><a href="{{url('formation')}}" class="{{ request()->is('formation') ? 'active' : '' }} nav-link">Formation</a></li>
+                                        <li><a href="{{url('nouvelles')}}" class="{{ request()->is('nouvelles') ? 'active' : '' }} nav-link">Nouvelles</a></li>
+                                        <li><a href="{{url('mediation')}}" class="{{ request()->is('mediation') ? 'active' : '' }} nav-link">Mediation</a></li>
+                                        <li><a href="{{url('blogue')}}" class="{{ request()->is('blogue') ? 'active' : '' }} nav-link">Blogue</a></li>
+                                        <li><a href="{{url('contact')}}" class="{{ request()->is('contact') ? 'active' : '' }} nav-link">Contact</a></li>
                                     </ul>
                                 </nav>
                             </div>

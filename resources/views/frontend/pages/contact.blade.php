@@ -54,10 +54,7 @@
                     </div>
                     <div class="col-lg-5 fluid-col-lg-5 p-0">
                         <div class="fluid-col h-100">
-
-                            <!-- Google Maps - Go to the bottom of the page to change settings and map location. -->
-                            <div id="googlemaps" class="google-map h-100 m-0" style="min-height: 400px;"></div>
-
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d83998.76457410633!2d2.2769947569434734!3d48.85894658150094!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e1f06e2b70f%3A0x40b82c3688c9460!2sParis%2C%20France!5e0!3m2!1sen!2s!4v1676286825387!5m2!1sen!2s" class="google-map h-100 m-0" style="min-height: 400px;" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
                 </div>

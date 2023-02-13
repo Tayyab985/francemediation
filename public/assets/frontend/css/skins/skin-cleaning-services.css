@@ -514,7 +514,7 @@ html .bg-color-hover-before-secondary:before:hover {
 
 html .bg-color-tertiary,
 html .bg-tertiary {
-	background-color: #162129 !important;
+	background-image: linear-gradient(to right, #00adee, #29b4bb, #87c445);
 }
 
 html .bg-color-hover-tertiary:hover,
@@ -1089,7 +1089,7 @@ html .overlay-color-secondary:not(.no-skin):before {
 }
 
 html .overlay-color-tertiary:not(.no-skin):before {
-	background-color: #21313d !important;
+	background-image: linear-gradient(to right, #00adee, #29b4bb, #87c445);
 }
 
 html .overlay-color-quaternary:not(.no-skin):before {

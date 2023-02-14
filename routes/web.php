@@ -11,6 +11,8 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ModuleSettingController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\PaypalController;
+use App\Http\Controllers\CoursesController;
+use App\Http\Controllers\InstructorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -109,6 +111,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::resource('blogs', BlogsController::class);
     Route::get('blogs/delete/{id}', [BlogsController::class, 'delete'])->name('blogs.delete');
     Route::post('/blogs/deleteAll', [BlogsController::class, 'deleteAll'])->name('blogs.delete-all');
+
+    Route::resource('courses', CoursesController::class);
+    Route::get('courses/delete/{id}', [CoursesController::class, 'delete'])->name('courses.delete');
+    Route::post('/courses/deleteAll', [CoursesController::class, 'deleteAll'])->name('courses.delete-all');
+
+    Route::resource('instructor', InstructorController::class);
+    Route::get('instructor/delete/{id}', [InstructorController::class, 'delete'])->name('instructor.delete');
+    Route::post('/instructor/deleteAll', [InstructorController::class, 'deleteAll'])->name('instructor.delete-all');
 });
 
 Route::get('auth/google', [App\Http\Controllers\GoogleLoginController::class, 'redirectToGoogle'])->name('google.login');

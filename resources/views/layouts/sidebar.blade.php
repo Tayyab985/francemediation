@@ -61,6 +61,22 @@
                                 <span class="nav-title">Blogs</span>
                             </a>
                         </li>
+                        <li class="{{ Route::is('instructor.index') ? 'selected' : '' }}">
+                            <a href="{{ route('instructor.index') }}">
+                                <span class="has-icon">
+                                    <i class="icon-text"></i>
+                                </span>
+                                <span class="nav-title">Instructor</span>
+                            </a>
+                        </li>
+                        <li class="{{ Route::is('courses.index') ? 'selected' : '' }}">
+                            <a href="{{ route('courses.index') }}">
+                                <span class="has-icon">
+                                    <i class="icon-text"></i>
+                                </span>
+                                <span class="nav-title">Courses</span>
+                            </a>
+                        </li>
 {{--                        <li class="{{ Route::is('cms.index') ? 'selected' : '' }}">--}}
 {{--                            <a href="{{ route('cms.index') }}">--}}
 {{--                                <span class="has-icon">--}}

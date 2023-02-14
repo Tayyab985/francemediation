@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ModuleSettingController;
 use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\InstructorController;
@@ -119,6 +120,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::resource('instructor', InstructorController::class);
     Route::get('instructor/delete/{id}', [InstructorController::class, 'delete'])->name('instructor.delete');
     Route::post('/instructor/deleteAll', [InstructorController::class, 'deleteAll'])->name('instructor.delete-all');
+    
+    Route::resource('events', EventController::class);
+    Route::get('events/delete/{id}', [EventController::class, 'delete'])->name('events.delete');
+    Route::post('/events/deleteAll', [EventController::class, 'deleteAll'])->name('events.delete-all');
 });
 
 Route::get('auth/google', [App\Http\Controllers\GoogleLoginController::class, 'redirectToGoogle'])->name('google.login');

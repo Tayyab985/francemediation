@@ -12,6 +12,8 @@ use App\Http\Controllers\ModuleSettingController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PaypalController;
+use App\Http\Controllers\CoursesController;
+use App\Http\Controllers\InstructorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -111,6 +113,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('blogs/delete/{id}', [BlogsController::class, 'delete'])->name('blogs.delete');
     Route::post('/blogs/deleteAll', [BlogsController::class, 'deleteAll'])->name('blogs.delete-all');
 
+    Route::resource('courses', CoursesController::class);
+    Route::get('courses/delete/{id}', [CoursesController::class, 'delete'])->name('courses.delete');
+    Route::post('/courses/deleteAll', [CoursesController::class, 'deleteAll'])->name('courses.delete-all');
+
+    Route::resource('instructor', InstructorController::class);
+    Route::get('instructor/delete/{id}', [InstructorController::class, 'delete'])->name('instructor.delete');
+    Route::post('/instructor/deleteAll', [InstructorController::class, 'deleteAll'])->name('instructor.delete-all');
+    
     Route::resource('events', EventController::class);
     Route::get('events/delete/{id}', [EventController::class, 'delete'])->name('events.delete');
     Route::post('/events/deleteAll', [EventController::class, 'deleteAll'])->name('events.delete-all');

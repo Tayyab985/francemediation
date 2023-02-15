@@ -22,6 +22,7 @@ use PayPal\Api\RedirectUrls;
 use PayPal\Api\ExecutePayment;
 use PayPal\Api\PaymentExecution;
 use PayPal\Api\Transaction;
+use App\Models\PaymentRecords;
 
 class PaypalController extends Controller
 {
@@ -112,8 +113,14 @@ class PaypalController extends Controller
         $result = $payment->execute($execution, $this->_api_context);
         
         if ($result->getState() == 'approved') {   
-            Training_submissions::where('id',$formation_id)->update(['paid_status'=>'Paid']);    
+            Training_submissions::where('id',$formation_id)->update(['paid_status'=>'Paid']);
+            PaymentRecords::create([
+                'payer_id' => $formation_id,
+                'pay' => 1,
+                'status' => "Paid"
+            ]);   
             \Session::put('success','Your data successfully saved !! Payment also success !!');
+            Session::forget('formation_id');
             return Redirect::route('formation');
         }
 

@@ -75,12 +75,30 @@
                                     <i class="icon-text"></i>
                                 </span>
                                 <span class="nav-title">Courses</span>
+                            </a>
+                        </li>
                         <li class="{{ Route::is('events.index') ? 'selected' : '' }}">
                             <a href="{{ route('events.index') }}">
                                 <span class="has-icon">
                                     <i class="icon-text"></i>
                                 </span>
                                 <span class="nav-title">Events</span>
+                            </a>
+                        </li>
+                        <li class="{{ Route::is('categories.index') ? 'selected' : '' }}">
+                            <a href="{{ route('categories.index') }}">
+                                <span class="has-icon">
+                                    <i class="icon-text"></i>
+                                </span>
+                                <span class="nav-title">Categories</span>
+                            </a>
+                        </li>
+                        <li class="{{ Route::is('sub_categories.index') ? 'selected' : '' }}">
+                            <a href="{{ route('sub_categories.index') }}">
+                                <span class="has-icon">
+                                    <i class="icon-text"></i>
+                                </span>
+                                <span class="nav-title">Sub Categories</span>
                             </a>
                         </li>
 {{--                        <li class="{{ Route::is('cms.index') ? 'selected' : '' }}">--}}

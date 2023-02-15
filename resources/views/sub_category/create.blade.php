@@ -8,13 +8,13 @@
                     <i class="icon-text"></i>
                 </div>
                 <div class="page-title">
-                    <h3>Courses</h3>
+                    <h3>Sub Category</h3>
                 </div>
             </div>
             <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
                 <div class="daterange-container">
                     <a data-toggle="tooltip" class="btn btn-primary btn-sm btn-create"
-                        href="{{ route('courses.index') }}"><i class="icon-eye"></i> View</a>
+                        href="{{ route('sub_categories.index') }}"><i class="icon-eye"></i> View</a>
                 </div>
             </div>
         </div>
@@ -22,9 +22,8 @@
 </header>
 <!-- END: .main-heading -->
 <!-- BEGIN .main-content -->
-
 <div class="main-content">
-    <form action="{{ route('courses.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('sub_categories.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         @if ($errors->any())
             <div class="validation error">
@@ -41,18 +40,18 @@
                 <div class="row gutters">
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Select User</label>
-                            <select name="instructor" id="" class="form-control">
-                                <option disabled selected>Select Instructor</option>
-                                @foreach($users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->first_name.' '.$user->last_name }}</option>
+                            <label for="exampleFormControlTextarea1">Select Category</label>
+                            <select name="category_id" id="" class="form-control">
+                                <option disabled selected>Select Category</option>
+                                @foreach($category as $cat)
+                                    <option value="{{ $cat->id }}">{{ $cat->title }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Course Title</label>
+                            <label for="exampleFormControlInput1">Title</label>
                             <input type="text" name="title" class="form-control" id="exampleFormControlInput1" placeholder="Enter title...">
                         </div>
                     </div>
@@ -62,40 +61,14 @@
                             <input type="file" name="image" class="form-control">
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Category</label>
-                            <select name="category" id="" class="form-control">
-                                <option disabled selected>Select category</option>
-                                @foreach($categories as $cat)
-                                    <option value="{{ $cat->id }}">{{ $cat->title }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Sub Category</label>
-                            <select name="sub_category" id="" class="form-control">
-                                <option disabled selected>Select sub category</option>
-                                <option value="1">sub categroy 1</option>
-                                <option value="2">sub Category 2</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Price</label>
-                            <input type="text" name="price" class="form-control" placeholder="Enter price">
-                        </div>
-                    </div>
                 </div>
                 <div class="actions clearfix">
                     <button type="submit" class="btn btn-primary"><span class="icon-save2"></span>
                             Save
                     </button>
                 </div>
-            </div></div>
+            </div>
+        </div>
     </form>
 </div>
 <!-- END: .main-content -->

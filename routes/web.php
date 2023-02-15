@@ -14,6 +14,8 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\InstructorController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubCategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -124,6 +126,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::resource('events', EventController::class);
     Route::get('events/delete/{id}', [EventController::class, 'delete'])->name('events.delete');
     Route::post('/events/deleteAll', [EventController::class, 'deleteAll'])->name('events.delete-all');
+    
+    Route::resource('categories', CategoryController::class);
+    Route::get('categories/delete/{id}', [CategoryController::class, 'delete'])->name('categories.delete');
+    Route::post('/categories/deleteAll', [CategoryController::class, 'deleteAll'])->name('categories.delete-all');
+    
+    Route::resource('sub_categories', SubCategoryController::class);
+    Route::get('sub_categories/delete/{id}', [SubCategoryController::class, 'delete'])->name('sub_categories.delete');
+    Route::post('/sub_categories/deleteAll', [SubCategoryController::class, 'deleteAll'])->name('sub_categories.delete-all');
 });
 
 Route::get('auth/google', [App\Http\Controllers\GoogleLoginController::class, 'redirectToGoogle'])->name('google.login');

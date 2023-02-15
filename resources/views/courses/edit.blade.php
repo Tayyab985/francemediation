@@ -71,8 +71,9 @@
                             <label for="exampleFormControlTextarea1">Category</label>
                             <select name="category" id="" class="form-control">
                                 <option disabled selected>Select category</option>
-                                <option value="1" @if($course->category == 1) selected @endif>categroy 1</option>
-                                <option value="2" @if($course->category == 2) selected @endif>Category 2</option>
+                                @foreach($categories as $cat)
+                                    <option value="{{ $cat->id }}" @if($course->category == $cat->id) selected @endif>{{ $cat->title }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

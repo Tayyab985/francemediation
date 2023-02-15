@@ -4,13 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\CourseModel;
-use App\Models\Instructor;
-use App\Models\Category;
-use App\Models\SubCategory;
 use Yajra\DataTables\DataTables;
+use App\Models\SubCategory;
+use App\Models\Category;
 
-class CoursesController extends Controller
+class SubCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +17,9 @@ class CoursesController extends Controller
      */
     public function index(Request $request)
     {
-        $courses = [];
+        $sub_category = [];
         if ($request->ajax()) {
-            $data = CourseModel::orderBy('id', 'DESC')->get();
+            $data = SubCategory::orderBy('id', 'DESC')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->editColumn('check', function($row1){
@@ -35,8 +33,8 @@ class CoursesController extends Controller
                 })
                 ->addColumn('action', function($row){
                     $btn = '<div class="col-md-8 row">
-                    <a data-toggle="tooltip" href="'.route('courses.edit',$row->id).'" class="btn btn-primary btn-sm btn-edit ml-1"><i class="icon-pencil"></i>Eidt</a>
-                    <a data-toggle="tooltip" href="'.route('courses.delete',$row->id).'" class="btn btn-danger btn-sm btn-edit ml-1"><i
+                    <a data-toggle="tooltip" href="'.route('sub_categories.edit',$row->id).'" class="btn btn-primary btn-sm btn-edit ml-1"><i class="icon-pencil"></i>Eidt</a>
+                    <a data-toggle="tooltip" href="'.route('sub_categories.delete',$row->id).'" class="btn btn-danger btn-sm btn-edit ml-1"><i
                     class="icon-trash2"></i>Delete</a>
                     </div>';
                     return $btn;
@@ -44,7 +42,7 @@ class CoursesController extends Controller
                 ->rawColumns(['check','action'])
                 ->make(true);
         }
-        return view('courses.index', compact('courses'));
+        return view('sub_category.index', compact('sub_category'));
     }
 
     /**
@@ -54,9 +52,8 @@ class CoursesController extends Controller
      */
     public function create()
     {
-        $users = Instructor::all();
-        $categories = Category::all();
-        return view('courses.create',compact('users','categories'));
+        $category = Category::all();
+        return view('sub_category.create',compact('category'));
     }
 
     /**
@@ -68,30 +65,26 @@ class CoursesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'instructor' => 'required',
             'title' => 'required|string|max:255',
             'image' => 'required|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'category' => 'required',
-            'sub_category' => 'required',
-            'price' => 'required',
         ]);
         $submited_data = $request->input();
         unset($submited_data['_token']);
+        
+        $img = $request->image;
+        $image = time() . '-' . $img->getClientOriginalName();
+        $img->move(public_path('assets/sub_category/'),$image);
+        
+        $submited_data['image'] = $image;
 
-        $course_img = $request->image;
-        $img = time() . '-' . $course_img->getClientOriginalName();
-        $course_img->move(public_path('assets/courses/'),$img);
-
-        $submited_data['image'] = $img;
-
-        CourseModel::create($submited_data);
+        SubCategory::create($submited_data);
 
         $response_date = [
             'status' => true,
             'msg' => 'Your data added successfully'
         ];
 
-        return redirect(route('courses.index', $response_date));
+        return redirect(route('sub_categories.index', $response_date));
     }
 
     /**
@@ -113,10 +106,9 @@ class CoursesController extends Controller
      */
     public function edit($id)
     {
-        $users = Instructor::all();
-        $course = CourseModel::where('id',$id)->first();
-        $categories = Category::all();
-        return view('courses.edit',compact('course','users','categories'));
+        $sub_category = SubCategory::where('id',$id)->first();
+        $category = Category::all();
+        return view('sub_category.edit',compact('category','sub_category'));
     }
 
     /**
@@ -129,35 +121,27 @@ class CoursesController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'instructor' => 'required',
             'title' => 'required|string|max:255',
-            'category' => 'required',
-            'sub_category' => 'required',
-            'price' => 'required',
         ]);
 
-        $course = CourseModel::where('id',$id)->first();
+        $sub_category = SubCategory::where('id',$id)->first();
         if($request->image){
-            $isExists = File::exists('assets/courses/'.$course->image);
+            $isExists = File::exists('assets/sub_category/'.$sub_category->image);
             if ($isExists == true) {
-                File::delete(public_path('assets/courses/' . $course->image));
+                File::delete(public_path('assets/sub_category/' . $sub_category->image));
             }
-            $t_img = time() . rand(1, 99999). "." . $request->image->getClientOriginalExtension();
-            $request->image->move(public_path('assets/courses/'),$t_img);
+            $img = time() . rand(1, 99999). "." . $request->image->getClientOriginalExtension();
+            $request->image->move(public_path('assets/sub_category/'),$img);
         }else{
-            $t_img = $course->image;
+            $img = $sub_category->image;
         }
 
-        CourseModel::where('id',$id)->update([
-            'instructor' => $request->instructor,
+        SubCategory::where('id',$id)->update([
+            'category_id' => $request->category_id,
             'title' => $request->title,
-            'image' => $t_img,
-            'category' => $request->category,
-            'sub_category' => $request->sub_category,
-            'price' => $request->price
+            'image' => $img
         ]);
-
-        return redirect()->route('courses.index')->with('success', '<i class="icon-tick"></i><strong>Well done!</strong>, Success');
+        return redirect()->route('sub_categories.index')->with('success', '<i class="icon-tick"></i><strong>Well done!</strong>, Success');
     }
 
     /**
@@ -173,16 +157,16 @@ class CoursesController extends Controller
 
     public function delete($id)
     {
-        CourseModel::where('id', $id)->delete();
-        return redirect()->route('courses.index')->with('success', '<i class="icon-tick"></i><strong>Well done!</strong>, Success');
+        SubCategory::where('id', $id)->delete();
+        return redirect()->route('sub_categories.index')->with('success', '<i class="icon-tick"></i><strong>Well done!</strong>, Success');
     }
 
     public function deleteAll(Request $request)
     {
         $ids = $request->ids;
-        $course = CourseModel::whereIn('id', $ids)->delete();
-        if ($course) {
-            $arr = ["success" => true, "message" => 'Selected course Delete successfully.'];
+        $subCategory = SubCategory::whereIn('id', $ids)->delete();
+        if ($subCategory) {
+            $arr = ["success" => true, "message" => 'Selected Categories Delete successfully.'];
             return $arr;
         }
     }
